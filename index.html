@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>天天开红包</title>
+    <style>
+        body {
+            background-color: #f6f6f6;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .keycopy {
+            background: #ff4400;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>领取淘宝优惠券</h1>
+    <button id="copyBtn" class="keycopy" data-clipboard-text="￥NCHPVwW2Q7m￥/ HU7405">复制口令</button>
+    <div id="message" class="message"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script>
+        var clipboard = new ClipboardJS('#copyBtn');
+        
+        clipboard.on('success', function(e) {
+            // 显示复制成功的提示
+            document.getElementById('message').innerText = "口令已复制成功！请打开手机 [ 淘宝app ] 查看";
+
+            // 复制完成后自动跳转到淘宝
+            setTimeout(function() {
+                // 使用淘宝深度链接进行跳转
+                window.location.href = "tbopen://m.taobao.com/tbopen/index.html?&action=ali.open.nav&module=h5&h5Url=" + encodeURIComponent(window.location.href);
+            }, 1500);
+        });
+
+        clipboard.on('error', function(e) {
+            document.getElementById('message').innerText = "复制失败，请手动复制口令。";
+        });
+    </script>
+</body>
+</html>
