@@ -1,58 +1,65 @@
+
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>红包口令</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>天天开红包</title>
   <style>
     body {
+      background: #fffaf3;
       margin: 0;
-      background: #fff8f0;
-      font-family: sans-serif;
-      text-align: center;
+      padding: 0;
     }
-    .btn {
-      background: #ff4400;
-      color: white;
-      font-size: 18px;
-      padding: 15px 25px;
-      border-radius: 8px;
-      margin-top: 100px;
-      display: inline-block;
-      cursor: pointer;
+    .container {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
     }
-    .tips {
-      margin-top: 20px;
-      font-size: 16px;
-      color: #555;
+    .bg-img {
+      width: 100%;
+      display: block;
+    }
+    .copy-btn {
+      position: absolute;
+      width: 60%;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 70%;
+    }
+    .mark-img {
+      position: absolute;
+      width: 15%;
+      top: 75%;
+      left: 80%;
+      transform: translateX(-50%);
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <img class="bg-img" src="https://cdn2.6-y.cn/cps/cshb.png" alt="红包背景" />
+    <img id="copyBtn" class="copy-btn" src="https://crm.shenquanwaimai.com/resource/image/crmapi/shangou2.png" alt="复制口令" />
+    <img class="mark-img" src="https://img.dac6.cn/users/0/0/3d566cda202c38df2306d3c84aea1ded.png" />
+  </div>
 
-<div class="btn" id="copyBtn">点击领取淘宝红包</div>
-<div class="tips" id="status">点击按钮复制口令并打开淘宝</div>
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+  <script>
+    const ios = /iphone|ipad|mac/i.test(navigator.userAgent.toLowerCase());
+    const taokey = "￥NCHPVwW2Q7m￥";
 
-<!-- 直接使用原生JS和ClipboardJS实现复制+跳转 -->
-<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
-<script>
-  const taoToken = "￥NCHPVwW2Q7m￥/ HU7405";
-  const btn = document.getElementById("copyBtn");
-  const status = document.getElementById("status");
+    const btn = document.getElementById("copyBtn");
+    btn.setAttribute("data-clipboard-text", taokey);
 
-  new ClipboardJS(btn, {
-    text: () => taoToken
-  }).on('success', () => {
-    status.innerText = "口令复制成功，正在尝试打开淘宝...";
-    // 淘宝跳转口令（适配淘宝 App）
-    setTimeout(() => {
-      const url = "taobao://";
-      window.location.href = url;
-    }, 500);
-  }).on('error', () => {
-    status.innerText = "复制失败，请手动长按复制";
-  });
-</script>
-
+    new ClipboardJS("#copyBtn").on("success", () => {
+      alert("口令复制成功！请打开淘宝 App 查看");
+      if (ios) {
+        setTimeout(() => {
+          location.href = "taobao://";
+        }, 300);
+      }
+    });
+  </script>
 </body>
 </html>
